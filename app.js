@@ -1,14 +1,16 @@
+require("dotenv").config(); // Load environment variables from .env file
 const express = require("express");
 const logger = require("morgan"); // logging middleware
 const cors = require("cors"); // cross origin middleware
+
+
 const PORT = process.env.PORT || 3000; // default port to listen
 
 // Pull Router Class
 const routes = require("./routes"); 
 
 
-// Pull contents of .env file into process.env
-require("dotenv").config();
+
 
 // Pull database 
 require("./config/database");
