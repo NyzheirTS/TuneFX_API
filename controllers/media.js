@@ -43,7 +43,30 @@ const getCoverArt = async (req, res) => {
     }
 };
 
+const getThumbnail = async (req, res) => {
+    try {
+        const trackId = req.params.id;
+        const filePath = await mediaService.getThumbnail(trackId);
+
+        res.sendFile(filePath);
+
+    } catch (error) {
+        switch(error.message) {
+            case 'INVALID_TRACK_ID':
+                res.status(400).json({ error: error.message });
+                break;
+            case 'THUMBNAIL_NOT_FOUND':
+                res.status(404).json({ error: error.message });
+                break;
+            default:
+                console.error(error);
+                res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+};
+
 module.exports = {
     getTrackStream,
-    getCoverArt
+    getCoverArt,
+    getThumbnail
 };  

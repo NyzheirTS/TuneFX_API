@@ -19,6 +19,7 @@ router
 
 router
     .get('/stream/:id', mediaController.getTrackStream) // Route to stream a track by ID
-    .get('/image/:id', mediaController.getCoverArt); // Route to get cover art for a track by ID
+    .get('/image/:id', mediaController.getCoverArt) // Route to get cover art for a track by ID
+    .get('/thumbnail/:id', mediaController.getThumbnail); // Route to get thumbnail for a track by ID
 
 module.exports = router;

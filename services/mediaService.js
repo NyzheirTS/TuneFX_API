@@ -3,6 +3,7 @@ const path = require("path");
 
 const MUSIC_DIR = "/music";
 const COVER_ART_DIR = "/cover_art";
+const THUMBNAIL_DIR = "/thumbnail";
 
 /**
  * Returns a readable stream for a track.
@@ -54,7 +55,26 @@ function getCoverArt(trackId) {
     return filePath;
 }
 
+function getThumbnail(trackId) {
+    // images are stored as cover_thumb_<trackId>.webp in the THUMBNAIL_DIR
+    if (!/^\d+$/.test(trackId)) {
+        throw new Error("INVALID_TRACK_ID");
+    }
+
+    const filePath = path.join(
+        THUMBNAIL_DIR,
+        `cover_thumb_${trackId}.jpg`
+    );
+
+    if (!fs.existsSync(filePath)) {
+        throw new Error(`THUMBNAIL_NOT_FOUND: ${filePath}`);
+    }
+
+    return filePath;
+}
+
 module.exports = {
     getTrackStream,
-    getCoverArt
+    getCoverArt,
+    getThumbnail
 };
